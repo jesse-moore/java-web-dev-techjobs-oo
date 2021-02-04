@@ -1,5 +1,9 @@
 package org.launchcode.techjobs_oo;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Job {
@@ -25,6 +29,25 @@ public class Job {
         this.location = location;
         this.positionType = positionType;
         this.coreCompetency = coreCompetency;
+    }
+
+    @Override
+    public String toString(){
+        if(this.getEmployer() != null && this.getLocation() != null && this.getPositionType() != null && this.getCoreCompetency() != null) {
+            String[] names = {"Name", "Employer", "Location", "Position Type", "Core Competency"};
+            String[] values = { this.name, this.employer.toString(), this.location.toString(), this.positionType.toString(), this.coreCompetency.toString() };
+
+            String output = "\nID: " + this.id + "\n";
+            String emptyString = "Data not available";
+            for (int i = 0; i < names.length; i++) {
+                String value = values[i]==null || values[i].isBlank()?emptyString:values[i];
+                output += names[i] + ": " + value + "\n";
+            }
+            output += "\n";
+            return output;
+        } else {
+            return "OOPS! This job does not seem to exist.";
+        }
     }
 
     public int getId() {
