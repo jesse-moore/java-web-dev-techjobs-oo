@@ -1,6 +1,5 @@
 package org.launchcode.techjobs_oo.tests;
 
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -12,7 +11,7 @@ public class JobTest {
     public void testSettingJobId(){
         Job job1 = new Job();
         Job job2 = new Job();
-        assertTrue(job2.getId() == job1.getId() + 1);
+        assertEquals(job2.getId(), job1.getId() + 1);
     }
 
     @Test
@@ -38,7 +37,7 @@ public class JobTest {
     public void testJobsForEquality(){
         Job job1 = new Job();
         Job job2 = new Job();
-        assertFalse(job1.equals(job2));
+        assertNotEquals(job1, job2);
     }
 
     @Test
@@ -98,7 +97,7 @@ public class JobTest {
     }
 
     @Test
-    public void testJobStringWhenFieldIsEmptyIsCorrect(){
+    public void testJobStringWhenFieldIsEmpty(){
         Job job = new Job("", new Employer(""), new Location(""), new PositionType(""), new CoreCompetency(""));
         String jobString = job.toString();
         String[] jobStringArr = jobString.split("\n");
@@ -126,4 +125,5 @@ public class JobTest {
         Job job = new Job();
         assertEquals("OOPS! This job does not seem to exist.", job.toString());
     }
+
 }

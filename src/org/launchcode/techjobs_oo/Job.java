@@ -1,9 +1,5 @@
 package org.launchcode.techjobs_oo;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class Job {
@@ -16,38 +12,37 @@ public class Job {
     private Location location;
     private PositionType positionType;
     private CoreCompetency coreCompetency;
+    private boolean isInitialized;
 
     public Job() {
         id = nextId;
+        name = "Data not available";
+        isInitialized = false;
         nextId++;
     }
 
     public Job(String name, Employer employer, Location location, PositionType positionType, CoreCompetency coreCompetency) {
         this();
-        this.name = name;
+        if(name != null && !name.isBlank()) this.name = name;
         this.employer = employer;
         this.location = location;
         this.positionType = positionType;
         this.coreCompetency = coreCompetency;
+        isInitialized = true;
     }
 
     @Override
     public String toString(){
-        if(this.getEmployer() != null && this.getLocation() != null && this.getPositionType() != null && this.getCoreCompetency() != null) {
-            String[] names = {"Name", "Employer", "Location", "Position Type", "Core Competency"};
-            String[] values = { this.name, this.employer.toString(), this.location.toString(), this.positionType.toString(), this.coreCompetency.toString() };
+        if(!isInitialized) return "OOPS! This job does not seem to exist.";
 
-            String output = "\nID: " + this.id + "\n";
-            String emptyString = "Data not available";
-            for (int i = 0; i < names.length; i++) {
-                String value = values[i]==null || values[i].isBlank()?emptyString:values[i];
-                output += names[i] + ": " + value + "\n";
-            }
-            output += "\n";
-            return output;
-        } else {
-            return "OOPS! This job does not seem to exist.";
-        }
+        String output = "\nID: " + this.id + "\n";
+        output += "Name" + ": " + this.name + "\n";
+        output += "Employer" + ": " + this.getEmployer() + "\n";
+        output += "Location" + ": " + this.getLocation() + "\n";
+        output += "Position Type" + ": " + this.getPositionType() + "\n";
+        output += "Core Competency" + ": " + this.getCoreCompetency() + "\n";
+        output += "\n";
+        return output;
     }
 
     public int getId() {
